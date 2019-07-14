@@ -1,1 +1,1 @@
-include ':factory', ':facade', ':adapter', ':mvp'
+include ':factory', ':facade', ':adapter', ':mvp', ':mvvm'
