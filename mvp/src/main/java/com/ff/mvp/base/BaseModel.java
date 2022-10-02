@@ -1,6 +1,6 @@
 package com.ff.mvp.base;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * description: Model层基类

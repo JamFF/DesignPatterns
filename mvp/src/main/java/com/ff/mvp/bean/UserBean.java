@@ -1,6 +1,6 @@
 package com.ff.mvp.bean;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class UserBean {
 

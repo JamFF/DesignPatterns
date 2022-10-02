@@ -11,7 +11,7 @@ import java.lang.reflect.Proxy;
  */
 public class Retrofit {
 
-    private CallAdapter.Factory factory;
+    private final CallAdapter.Factory factory;
 
     private Retrofit(CallAdapter.Factory factory) {
         this.factory = factory;

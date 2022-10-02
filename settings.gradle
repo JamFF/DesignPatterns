@@ -1,1 +1,19 @@
-include ':factory', ':facade', ':adapter', ':mvp', ':mvvm'
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+include ':factory'
+include ':facade'
+include ':adapter'
+include ':mvp'
+include ':mvvm'

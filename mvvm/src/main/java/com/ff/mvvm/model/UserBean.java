@@ -1,6 +1,6 @@
 package com.ff.mvvm.model;
 
-import android.databinding.ObservableField;
+import androidx.databinding.ObservableField;
 
 /**
  * description: M层

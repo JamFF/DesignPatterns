@@ -1,7 +1,6 @@
 package com.ff.mvp.login;
 
-
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.ff.mvp.base.BaseModel;
 import com.ff.mvp.bean.UserBean;

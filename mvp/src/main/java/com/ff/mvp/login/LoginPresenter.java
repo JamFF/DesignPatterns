@@ -1,7 +1,7 @@
 package com.ff.mvp.login;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.ff.mvp.LoginActivity;
 import com.ff.mvp.base.BasePresenter;

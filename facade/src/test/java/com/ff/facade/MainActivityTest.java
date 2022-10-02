@@ -1,5 +1,14 @@
 package com.ff.facade;
 
+import android.graphics.Bitmap;
+
+import com.ff.facade.impl.DiskCacheImpl;
+import com.ff.facade.impl.MemoryCacheImpl;
+import com.ff.facade.impl.NetWorkLoaderImpl;
+import com.ff.facade.thing.DiskCache;
+import com.ff.facade.thing.MemoryCache;
+import com.ff.facade.thing.NetWorkLoader;
+
 import org.junit.Test;
 
 /**
@@ -14,19 +23,21 @@ public class MainActivityTest {
     @Test
     public void onCreate() {
         // 常规的写法：
-        /*MemoryCache memoryCache = new MemoryCacheImpl();
-        Bitmap byMemory = memoryCache.findByMemory(URL);
-        if (byMemory == null) {
+        MemoryCache memoryCache = new MemoryCacheImpl();
+        Bitmap result = memoryCache.findByMemory(URL);
+        if (result == null) {
             DiskCache diskCache = new DiskCacheImpl();
-            Bitmap byDisk = diskCache.findByDisk(URL);
-            if (byDisk == null) {
+            result = diskCache.findByDisk(URL);
+            if (result == null) {
                 NetWorkLoader netWorkLoader = new NetWorkLoaderImpl();
-                netWorkLoader.loaderImageFromNet(URL);
+                result = netWorkLoader.loaderImageFromNet(URL);
             }
-        }*/
+        }
+        System.out.println(result);
 
-        // 外观模式
-        Facade facade = new Facade(URL);
-        facade.loader();
+        // 外观模式：
+        ImageLoader facade = new ImageLoader(URL);
+        Bitmap bitmap = facade.loader();
+        System.out.println(bitmap);
     }
 }

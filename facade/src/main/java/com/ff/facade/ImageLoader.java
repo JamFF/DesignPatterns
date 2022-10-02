@@ -10,31 +10,32 @@ import com.ff.facade.thing.MemoryCache;
 import com.ff.facade.thing.NetWorkLoader;
 
 /**
- * description: 外观模式
+ * description: 图片获取的外观模式
  * author: FF
  * time: 2019-07-09 23:17
  */
-public class Facade {
+public class ImageLoader {
 
-    private String url;
-    private MemoryCache memoryCache;
-    private DiskCache diskCache;
-    private NetWorkLoader netWorkLoader;
+    private final String url;
+    private final MemoryCache memoryCache;
+    private final DiskCache diskCache;
+    private final NetWorkLoader netWorkLoader;
 
-    public Facade(String url) {
+    public ImageLoader(String url) {
         this.url = url;
         memoryCache = new MemoryCacheImpl();
         diskCache = new DiskCacheImpl();
         netWorkLoader = new NetWorkLoaderImpl();
     }
 
-    void loader() {
-        Bitmap byMemory = memoryCache.findByMemory(url);
-        if (byMemory == null) {
-            Bitmap byDisk = diskCache.findByDisk(url);
-            if (byDisk == null) {
-                netWorkLoader.loaderImageFromNet(url);
+    Bitmap loader() {
+        Bitmap result = memoryCache.findByMemory(url);
+        if (result == null) {
+            result = diskCache.findByDisk(url);
+            if (result == null) {
+                result = netWorkLoader.loaderImageFromNet(url);
             }
         }
+        return result;
     }
 }

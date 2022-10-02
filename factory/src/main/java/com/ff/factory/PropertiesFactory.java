@@ -2,8 +2,6 @@ package com.ff.factory;
 
 import android.content.Context;
 
-import com.ff.factory.Api;
-
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -27,7 +25,7 @@ public class PropertiesFactory {
         // InputStream inputStream = PropertiesFactory.class.getResourceAsStream("assets/config.properties");
         props.load(inputStream);
 
-        Class clazz = Class.forName(props.getProperty("create_a"));
+        Class<?> clazz = Class.forName(props.getProperty("create_a"));
         return (Api) clazz.newInstance();
     }
 }

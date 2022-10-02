@@ -9,7 +9,6 @@ public interface Call<T> {
 
     /**
      * 真正执行网络请求
-     * 这里为了简单，不设置回调，参数省略了Callback<T> callback
      */
     void enqueue(Callback<T> callback);
 }

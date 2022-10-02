@@ -2,7 +2,7 @@ package com.ff.adapter.retrofit;
 
 import com.ff.adapter.retrofit.library.Call;
 
-import rx.Observable;
+import io.reactivex.rxjava3.core.Observable;
 
 /**
  * description:

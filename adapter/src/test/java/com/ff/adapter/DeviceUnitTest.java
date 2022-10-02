@@ -1,15 +1,15 @@
 package com.ff.adapter;
 
-import com.ff.adapter.example.ChinaDevice;
+import com.ff.adapter.example.device.ChinaDevice;
 import com.ff.adapter.example.ChinaPower;
-import com.ff.adapter.example.USADevice;
+import com.ff.adapter.example.device.USADevice;
 import com.ff.adapter.example.device.ChinaAdapter;
 import com.ff.adapter.example.device.Device;
 
 import org.junit.Test;
 
 /**
- * description: 需要一个电源适配器同时使用两种
+ * description: 需要一个电源适配器同时使用两种国家的电器
  * author: FF
  * time: 2019-07-10 14:52
  */
@@ -18,27 +18,23 @@ public class DeviceUnitTest {
     @Test
     public void test() {
 
-        // 普通方式
-
-        // 创建220V电源
+        // region 普通方式
+        // 创建中国220V电源
         ChinaPower chinaPower = new ChinaPower();
 
-        Device device = new ChinaDevice();
+        // 运行中国电器，没问题
+        chinaPower.run(new ChinaDevice());
 
-        // 运行中国电器
-        chinaPower.run(device);
+        // 运行美国电器，电压匹配，不能运行
+        chinaPower.run(new USADevice());
+        // endregion
 
-
-        // 运行美国电器
-        // power.run(new USADevice());// 电压匹配，不能运行
-
-
-        // 适配器模式
-        device = new ChinaAdapter();
-        chinaPower.run(device);
+        // region 适配器模式
+        // 默认构造，就是支持220V的中国电器
+        chinaPower.run(new ChinaAdapter());
 
         // 只要修改一下构造，就可以完美适配
-        device = new ChinaAdapter(new USADevice());
-        chinaPower.run(device);
+        chinaPower.run(new ChinaAdapter(new USADevice()));
+        // endregion
     }
 }

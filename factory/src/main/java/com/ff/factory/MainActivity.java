@@ -1,8 +1,10 @@
 package com.ff.factory;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
+
+import com.ff.factory.impl.ApiImpl;
 
 /**
  * description: 工厂模式
@@ -19,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 常规编码
+//        Api api = new ApiImpl();
+//        api.createUser();
+
         // 简单工厂：降低了模块间的耦合度
         Api api = SampleFactory.createApi();
         Log.d(TAG, "SampleFactory: " + api.createUser());
@@ -32,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         try {
+            // 根据配置文件产生不同的实现
             api = PropertiesFactory.createApi(this);
             Log.d(TAG, "PropertiesFactory: " + api.createUser());
         } catch (Exception e) {

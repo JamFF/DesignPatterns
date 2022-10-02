@@ -70,12 +70,12 @@ public class LoginViewModel {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    // Model层属性的变更，改变View层的显示
-                    mUserBean.name.set("JamFF");
                     SystemClock.sleep(2000);
 
                     if ("FF".equals(mUserBean.name.get()) && "123".equals(mUserBean.pwd.get())) {
                         Log.e(TAG, "登录成功!");
+                        // Model层属性的变更，改变View层的显示
+                        mUserBean.name.set("JamFF");
                     } else {
                         Log.e(TAG, "登录失败!");
                     }

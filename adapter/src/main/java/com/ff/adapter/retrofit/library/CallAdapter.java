@@ -10,7 +10,7 @@ public interface CallAdapter<R, T> {
     T adapt(Call<R> call);
 
     /**
-     * description: 对外使用的都是这个工厂，
+     * description: 对外使用的都是这个工厂
      * author: FF
      * time: 2019-07-11 22:16
      */

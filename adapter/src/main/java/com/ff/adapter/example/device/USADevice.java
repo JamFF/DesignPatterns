@@ -1,6 +1,4 @@
-package com.ff.adapter.example;
-
-import com.ff.adapter.example.device.Device;
+package com.ff.adapter.example.device;
 
 /**
  * description: 美国电器

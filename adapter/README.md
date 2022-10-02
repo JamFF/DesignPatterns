@@ -44,10 +44,8 @@ public class DeviceUnitTest {
     public void test() {
         // 创建220V电源
         ChinaPower chinaPower = new ChinaPower();
-        // 创建电器
-        ChinaDevice device = new ChinaDevice();
-        // 运行电器
-        chinaPower.run(device);
+        // 运行中国电器
+        chinaPower.run(new ChinaDevice());
     }
 }
 ```
@@ -111,49 +109,50 @@ public class USAPower {
 ```
 public class ChinaAdapter implements Device {
 
-    private USADevice mUsaDevice;
+    private final Device mDevice;
 
     /**
      * 默认中国电器
      */
     public ChinaAdapter() {
-
+        mDevice = new ChinaDevice();
     }
 
     /**
-     * 适配美国电器
+     * 适配各国电器
      */
-    public ChinaAdapter(USADevice usaDevice) {
-        this.mUsaDevice = usaDevice;
+    public ChinaAdapter(Device device) {
+        this.mDevice = device;
     }
 
     @Override
     public void use(int voltage) {
         System.out.println("输入电压" + voltage + "V");
-        if (mUsaDevice != null) {// 适配美国电器
-            if (voltage == 110) {
-                System.out.println("美国电器正常运行");
-            } else {
-                System.out.println("适配器工作...进行变压");
-                voltage = 110;
-                System.out.println("美国电器在" + voltage + "V正常运行");
-            }
-        } else {// 默认中国电器
+        if (mDevice instanceof ChinaDevice) {// 默认中国电器
             if (voltage == 220) {
                 System.out.println("中国电器正常运行");
             } else {
                 System.out.println("中国电器烧毁");
             }
+        } else if (mDevice instanceof USADevice) {// 适配美国电器
+            if (voltage == 110) {
+                System.out.println("美国电器正常运行");
+            } else {
+                System.out.println("适配器工作...进行变压");
+                System.out.println("美国电器在" + voltage + "V正常运行");
+            }
+        } else {
+            throw new IllegalArgumentException(mDevice + "未知电器");
         }
         System.out.println();
     }
 }
 ```
 
-仔细对比 `ChinaAdapter` 和 `ChinaDevice`，可以发现，这个适配器只是扩展了 `ChinaDevice`，使其支持 `USADevice` 美国电器，本质上还是中国电器。
+仔细对比 `ChinaAdapter` 和 `ChinaDevice`，可以发现，这个适配器只是扩展了 `ChinaDevice`，使其支持 `USADevice` 美国电器甚至各国电器。
 
 * **无参构造** 创建的是中国电器，在 `use` 方法中，仅支持 220V。
-* **带参构造** 创建的是美国电器，在 `use` 方法中，将 220V 转为 110V。
+* **带参构造** 创建的是各国电器，在 `use` 方法中，将 220V 转为 110V。
 
 使用适配器：
 ```
@@ -167,8 +166,7 @@ public class DeviceUnitTest {
         Device device = new ChinaAdapter(new USADevice());
         chinaPower.run(device);
         // 默认构造，就是支持220V的中国电器
-        device = new ChinaAdapter();
-        chinaPower.run(device);
+        chinaPower.run(new ChinaAdapter());
     }
 }
 ```
@@ -190,6 +188,7 @@ public class DeviceUnitTest {
 * **注意事项**：适配器不是在详细设计时添加的，而是解决正在服役的项目的问题。
 
 ## 参考
+[设计模式-适配器](https://www.bilibili.com/video/BV17f4y1E7zU?p=3)
 [适配器模式](https://www.runoob.com/design-pattern/adapter-pattern.html)  
 [适配器和策略模式的联系与区别](https://www.cnblogs.com/ivy-xu/p/6638663.html)  
 [Retrofit--网络通讯框架](https://www.jianshu.com/p/dd3dca4de6c0)

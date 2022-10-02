@@ -1,6 +1,6 @@
 package com.ff.mvp.http_lib;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.ff.mvp.bean.UserBean;
 import com.ff.mvp.login.LoginPresenter;

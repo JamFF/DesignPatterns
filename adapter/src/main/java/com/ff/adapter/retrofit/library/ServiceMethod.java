@@ -7,7 +7,7 @@ package com.ff.adapter.retrofit.library;
  */
 public class ServiceMethod<R, T> {
 
-    private CallAdapter<R, T> callAdapter;
+    private final CallAdapter<R, T> callAdapter;
 
     private ServiceMethod(Builder<R, T> builder) {
         // 从建造者中拿到CallAdapter

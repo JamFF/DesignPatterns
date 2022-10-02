@@ -1,8 +1,8 @@
 package com.ff.facade.impl;
 
-import com.ff.facade.thing.NetWorkLoader;
+import android.graphics.Bitmap;
 
-import java.io.InputStream;
+import com.ff.facade.thing.NetWorkLoader;
 
 /**
  * description:
@@ -12,7 +12,7 @@ import java.io.InputStream;
 public class NetWorkLoaderImpl implements NetWorkLoader {
 
     @Override
-    public InputStream loaderImageFromNet(String url) {
+    public Bitmap loaderImageFromNet(String url) {
         System.out.println("loaderImageFromNet: ");
         return null;
     }

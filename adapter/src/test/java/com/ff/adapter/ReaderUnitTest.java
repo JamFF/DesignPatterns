@@ -1,36 +1,52 @@
 package com.ff.adapter;
 
-import com.ff.adapter.example.ISReaderImpl;
 import com.ff.adapter.example.reader.BReader;
+import com.ff.adapter.example.reader.ISReader;
 import com.ff.adapter.example.reader.ReaderAdapter;
 
 import org.junit.Test;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class ReaderUnitTest {
 
-    /*@Test
-    public BufferedReader getReader(File file) throws IOException {
+    /**
+     * 传统写法
+     */
+    @Test
+    public void getReader() throws IOException {
         // 文件字节流
-        FileInputStream fis = new FileInputStream(file);
+        FileInputStream fis = new FileInputStream("README.md");
 
         // 字节读取流
         InputStreamReader isr = new InputStreamReader(fis);
 
         // 缓冲字节流
-        return new BufferedReader(isr);
-    }*/
+        BufferedReader reader = new BufferedReader(isr);
+        System.out.println(reader.readLine());
+    }
 
+    /**
+     * 适配器写法
+     */
     @Test
     public void reader() throws IOException {
-        FileInputStream fis = new FileInputStream(new File("/Users/ff/text.txt"));
-        BReader bReader = new ReaderAdapter(new ISReaderImpl(fis));
+        // 文件字节流
+        FileInputStream fis = new FileInputStream("README.md");
 
-        BufferedReader reader = bReader.getBReader();
+        // 创建适配器，将ISReader接口转换为BReader接口
+        BReader adapter = new ReaderAdapter(new ISReader() {
+            @Override
+            public InputStreamReader getISReader() {
+                return new InputStreamReader(fis);
+            }
+        });
+
+        // 从适配器中获取缓冲字节流
+        BufferedReader reader = adapter.getBReader();
         System.out.println(reader.readLine());
     }
 }
