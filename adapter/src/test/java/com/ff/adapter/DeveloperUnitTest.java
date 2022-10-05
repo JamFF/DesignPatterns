@@ -10,8 +10,8 @@ import com.ff.adapter.retrofit.library.Retrofit;
 import org.junit.Test;
 
 import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 
@@ -32,27 +32,21 @@ public class DeveloperUnitTest {
         ApiService apiService = retrofit.create(ApiService.class);
 
         if (isRX) {
-            Observable<Model> modelObservable = apiService.rxRequestData();
-            modelObservable.subscribe(new Observer<Model>() {
-
+            Single<Model> modelObservable = apiService.rxRequestData();
+            modelObservable.subscribe(new SingleObserver<Model>() {
                 @Override
                 public void onSubscribe(@NonNull Disposable d) {
                     System.out.println("onSubscribe");
                 }
 
                 @Override
-                public void onNext(@NonNull Model model) {
-                    System.out.println("onNext");
+                public void onSuccess(@NonNull Model model) {
+                    System.out.println("onSuccess");
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
                     System.out.println("onError");
-                }
-
-                @Override
-                public void onComplete() {
-                    System.out.println("onComplete");
                 }
             });
         } else {

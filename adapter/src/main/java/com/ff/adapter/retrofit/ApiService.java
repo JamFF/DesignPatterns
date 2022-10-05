@@ -2,7 +2,7 @@ package com.ff.adapter.retrofit;
 
 import com.ff.adapter.retrofit.library.Call;
 
-import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 
 /**
  * description:
@@ -16,5 +16,5 @@ public interface ApiService {
      */
     Call<Model> requestData();
 
-    Observable<Model> rxRequestData();
+    Single<Model> rxRequestData();
 }

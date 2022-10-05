@@ -4,9 +4,9 @@ import com.ff.adapter.retrofit.library.Call;
 import com.ff.adapter.retrofit.library.CallAdapter;
 
 import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.ObservableEmitter;
-import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleEmitter;
+import io.reactivex.rxjava3.core.SingleOnSubscribe;
 
 /**
  * description: 开发者自定义的CallAdapter.Factory
@@ -19,20 +19,17 @@ public class RxJavaCallAdapterFactory extends CallAdapter.Factory {
     public CallAdapter<?, ?> get() {
         // 创建CallAdapter
         // 将网络请求后返回的Object转换为的使用者定义的Model数据类型
-        return new CallAdapter<Object, Observable<?>>() {
+        return new CallAdapter<Object, Single<?>>() {
             @Override
-            public Observable<?> adapt(Call<Object> call) {
-
-                System.out.println("Observable >>> ");
-                ObservableOnSubscribe<Object> func = new ObservableOnSubscribe<Object>() {
+            public Single<?> adapt(Call<Object> call) {
+                System.out.println("Single >>> ");
+                return Single.create(new SingleOnSubscribe<Object>() {
                     @Override
-                    public void subscribe(@NonNull ObservableEmitter<Object> emitter) throws Throwable {
+                    public void subscribe(@NonNull SingleEmitter<Object> emitter) throws Throwable {
                         System.out.println("RxJavaCallAdapterFactory 发起网络请求");
-                        emitter.onNext(new Model());
-                        emitter.onComplete();
+                        emitter.onSuccess(new Model());
                     }
-                };
-                return Observable.create(func);
+                });
             }
         };
     }
